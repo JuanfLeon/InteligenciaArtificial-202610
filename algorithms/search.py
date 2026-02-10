@@ -30,7 +30,23 @@ def depthFirstSearch(problem: SearchProblem):
     """
 
     # TODO: Add your code here
-    utils.raiseNotDefined()
+    #Stack
+    
+    frontier=utils.Stack()
+    frontier.push(problem.getStartState())
+    visited=[]
+    actions={problem.getStartState():[]}
+    while not frontier.isEmpty():
+        node=frontier.pop()
+        if problem.isGoalState(node):
+            return actions[node]
+        node not in visited
+        visited.append(node)
+        for successor, action, stepCost in problem.getSuccessors(node):
+            if successor not in visited:
+                frontier.push(successor)
+                actions[successor] = actions[node] + [action]
+
 
 
 def breadthFirstSearch(problem: SearchProblem):
