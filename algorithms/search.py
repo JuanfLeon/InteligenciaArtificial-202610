@@ -38,16 +38,16 @@ def depthFirstSearch(problem: SearchProblem):
     actions={problem.getStartState():[]}
     while not frontier.isEmpty():
         node=frontier.pop()
-        if problem.isGoalState(node):
-            return actions[node]
-        node not in visited
-        visited.append(node)
-        for structure in problem.getSuccessors(node):
-            successor=structure[0]
-            action=structure[1]
-            if successor not in visited:
-                frontier.push(successor)
-                actions[successor] = actions[node] + [action]
+        if node not in visited:
+            visited.append(node)
+            if problem.isGoalState(node):
+                return actions[node]
+            for structure in problem.getSuccessors(node):
+                successor=structure[0]
+                action=structure[1]
+                if successor not in visited:
+                    frontier.push(successor)
+                    actions[successor] = actions[node] + [action]
 
 
 
