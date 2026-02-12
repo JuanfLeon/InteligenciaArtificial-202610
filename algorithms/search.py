@@ -63,9 +63,31 @@ def uniformCostSearch(problem: SearchProblem):
     """
     Search the node of least total cost first.
     """
+    
+    
+    heap= utils.PriorityQueue()
+    visited=[] 
+    cost={problem.getStartState():0}
+    actions={problem.getStartState():[]}
+    heap.push(problem.getStartState())
+    while not utils.isEmpty(heap):
+        node=heap.pop()
+        vertex=node[0]
+        action=node[1]
+        costV=node[2]
+        if node not in visited:
+            if problem.isGoalState(node):
+                return actions[node]
+            for succesor in problem.getSuccessors(node):
+                newCost=succesor[2]+costV
+                if succesor not in cost or newCost<cost[succesor[0]]:
+                    cost[succesor[0]]=newCost
+                    actions[succesor[0]]=actions[node]+[action]
+                    heap.push(succesor, newCost)
+            
+    return []
+        
 
-    # TODO: Add your code here
-    utils.raiseNotDefined()
 
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
