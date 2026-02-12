@@ -35,19 +35,21 @@ def depthFirstSearch(problem: SearchProblem):
     frontier=utils.Stack()
     frontier.push(problem.getStartState())
     visited=[]
-    actions={problem.getStartState():[]}
+    actions = {}
+    initial_state = problem.getStartState()
+    actions[initial_state]=[]
     while not frontier.isEmpty():
         node=frontier.pop()
-        if problem.isGoalState(node):
-            return actions[node]
-        node not in visited
-        visited.append(node)
-        for structure in problem.getSuccessors(node):
-            successor=structure[0]
-            action=structure[1]
-            if successor not in visited:
-                frontier.push(successor)
-                actions[successor] = actions[node] + [action]
+        if node not in visited:
+            visited.append(node)
+            if problem.isGoalState(node):
+                return actions[node]
+            for structure in problem.getSuccessors(node):
+                successor=structure[0]
+                action=structure[1]
+                if successor not in visited:
+                    frontier.push(successor)
+                    actions[successor] = actions[node] + [action]
 
 
 
@@ -56,7 +58,25 @@ def breadthFirstSearch(problem: SearchProblem):
     Search the shallowest nodes in the search tree first.
     """
     # TODO: Add your code here
-    utils.raiseNotDefined()
+    frontera=utils.Queue()
+    frontera.push(problem.getStartState())
+    visitados=[]
+    actions = {}
+    initial_state = problem.getStartState()
+    actions[initial_state]=[]
+    while not frontera.isEmpty():
+        node=frontera.pop()
+        if node not in visitados:
+            visitados.append(node)
+            if problem.isGoalState(node):
+                return actions[node]
+            for structure in problem.getSuccessors(node):
+                successor=structure[0]
+                action=structure[1]
+                if successor not in visitados:
+                    frontera.push(successor)
+                    actions[successor] = actions[node] + [action]
+    
 
 
 def uniformCostSearch(problem: SearchProblem):

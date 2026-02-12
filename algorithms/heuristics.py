@@ -17,8 +17,8 @@ def manhattanHeuristic(state, problem):
     The Manhattan distance heuristic.
     """
     # TODO: Add your code here
-    totalDistance=  abs(state[0]-problem.goal[0]) + abs(state[1]-problem.goal[1])
-    return totalDistance
+    total_distance=  abs(state[0]-problem.goal[0]) + abs(state[1]-problem.goal[1])
+    return total_distance
 
 
 def euclideanHeuristic(state, problem):
@@ -26,8 +26,8 @@ def euclideanHeuristic(state, problem):
     The Euclidean distance heuristic.
     """
     # TODO: Add your code here
-    totalDistance= m.sqrt((problem.goal[0]-state[0])**2+ (problem.goal[1]-state[1])**2)
-    return totalDistance
+    total_distance= m.sqrt((problem.goal[0]-state[0])**2+ (problem.goal[1]-state[1])**2)
+    return total_distance
 
 
 def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
