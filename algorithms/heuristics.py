@@ -27,7 +27,7 @@ def euclideanHeuristic(state, problem):
     """
     # TODO: Add your code here
     total_distance= m.sqrt((problem.goal[0]-state[0])**2+ (problem.goal[1]-state[1])**2)
-    return totalDistance
+    return total_distance
 
 
 def survivorHeuristic(state: Tuple[Tuple, Any], problem: MultiSurvivorProblem):
