@@ -57,7 +57,7 @@ def breadthFirstSearch(problem: SearchProblem):
     """
     Search the shallowest nodes in the search tree first.
     """
-    # TODO: Add your code here
+    #TODO: Add your code here
     frontera=utils.Queue()
     frontera.push(problem.getStartState())
     visitados=[]
@@ -114,7 +114,39 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     Search the node that has the lowest combined cost and heuristic first.
     """
     # TODO: Add your code here
-    utils.raiseNotDefined()
+    frontier = utils.PriorityQueue()
+    visited = set()
+    cost={problem.getStartState():0}
+    actions={problem.getStartState():[]}
+    initial_state = problem.getStartState()
+
+    eval_function  = cost[initial_state] + heuristic(initial_state, problem)
+    frontier.push(initial_state, eval_function)
+    
+    while frontier != frontier.isEmpty():
+        current_state = frontier.pop()
+        
+        if current_state in visited:
+            continue
+        
+        visited.add(current_state)
+        
+        if problem.isGoalState(current_state):
+            return actions[current_state]
+
+        for successor, action, step_cost in problem.getSuccessors(current_state):
+            new_g = cost[current_state] + step_cost
+            
+            if successor not in cost or new_g < cost[successor]:
+                cost[successor] = new_g
+                actions[successor] = actions[current_state] + [action]
+                
+                f_successor = new_g + heuristic(successor, problem)
+                
+
+                frontier.push(successor, f_successor)
+
+    return []
 
 
 # Abbreviations (you can use them for the -f option in main.py)
