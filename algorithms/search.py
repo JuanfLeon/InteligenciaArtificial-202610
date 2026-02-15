@@ -118,7 +118,7 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     eval_function  = cost[initial_state] + heuristic(initial_state, problem)
     frontier.push(initial_state, eval_function)
     
-    while frontier != frontier.isEmpty():
+    while not frontier.isEmpty():
         current_state = frontier.pop()
         
         if current_state in visited:
