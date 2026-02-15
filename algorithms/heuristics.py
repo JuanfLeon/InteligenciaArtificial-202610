@@ -16,18 +16,36 @@ def manhattanHeuristic(state, problem):
     """
     The Manhattan distance heuristic.
     """
-    # TODO: Add your code here
-    total_distance=  abs(state[0]-problem.goal[0]) + abs(state[1]-problem.goal[1])
-    return total_distance
+    #Para diferenciar si el problema es Single o Multi
+    if hasattr(problem, 'goal'):
+        total_distance = abs(state[0] - problem.goal[0]) + abs(state[1] - problem.goal[1])
+        return total_distance
+
+    else:
+        position, survivors = state
+        survivor_positions = survivors.asList()
+        if not survivor_positions:
+            return 0
+        min_distance = min(abs(position[0] - x) + abs(position[1] - y) for x, y in survivor_positions)
+        return min_distance
 
 
 def euclideanHeuristic(state, problem):
     """
     The Euclidean distance heuristic.
     """
-    # TODO: Add your code here
-    total_distance= m.sqrt((problem.goal[0]-state[0])**2+ (problem.goal[1]-state[1])**2)
-    return total_distance
+    #Para diferenciar si el problema es Single o Multi
+    if hasattr(problem, 'goal'):
+        total_distance = m.sqrt((problem.goal[0] - state[0])**2 + (problem.goal[1] - state[1])**2)
+        return total_distance
+
+    else:
+        position, survivors = state
+        survivor_positions = survivors.asList()
+        if not survivor_positions:
+            return 0
+        min_distance = min(m.sqrt((x - position[0])**2 + (y - position[1])**2) for x, y in survivor_positions)
+        return min_distance
 
 
 def manhattan_dist(p1, p2):

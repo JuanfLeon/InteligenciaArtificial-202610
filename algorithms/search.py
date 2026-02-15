@@ -84,23 +84,25 @@ def uniformCostSearch(problem: SearchProblem):
     Search the node of least total cost first.
     """
     heap= utils.PriorityQueue()
-    visited=[]
-    cost={problem.getStartState()[0]:0}
+    visited=set()
+    cost={problem.getStartState():0}
     actions={problem.getStartState():[]}
     heap.push((problem.getStartState(), [], 0), 0)
     while not heap.isEmpty():
         vertex, actions,costV=heap.pop()
         
-        if vertex not in visited:
-            visited.append(vertex)
-            if problem.isGoalState(vertex):
-                return actions
-            for newVertex,newAction,newCost in problem.getSuccessors(vertex):
-                newCost=newCost+costV
-                if newVertex not in cost or newCost<cost[newVertex]:
-                    cost[newVertex]=newCost
-                    newActions=actions+[newAction]
-                    heap.push((newVertex,newActions,newCost), newCost)
+        if vertex in visited:
+            continue
+        
+        visited.add(vertex)
+        if problem.isGoalState(vertex):
+            return actions
+        for newVertex,newAction,newCost in problem.getSuccessors(vertex):
+            newCost=newCost+costV
+            if newVertex not in cost or newCost<cost[newVertex]:
+                cost[newVertex]=newCost
+                newActions=actions+[newAction]
+                heap.push((newVertex,newActions,newCost), newCost)
             
     return []      
 
